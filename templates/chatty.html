@@ -4,6 +4,15 @@
 <title>Chatty</title>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<style>
+div.msg_bbl {
+    background-color: #9d5b8b;
+    color: #ffd900;
+    padding: 5px 10px;
+    border-radius: 10px;
+    margin-bottom: 5px;
+}
+</style>
 </head>
 <body>
 <!--
@@ -44,26 +53,27 @@ $(document).ready(function() {
         var form = $('form').on('submit',function(e){
             e.preventDefault()
             let usr_name = $('input.usr').val()
-            let usr_input = $('input.msg').val()
+            let usr_text = $('textarea.msg').val()
             socket.emit('event',{
                 usr: usr_name,
-                msg: usr_input
+                msg: usr_text
             })
-            $('input.msg').val('').focus()
+            $('textarea.msg').val('').focus()
         })
     })
     socket.on('response', function(msg){
         console.log(msg)
         if(typeof msg.usr !== 'undefined'){
             $('h1').remove()
-            $('div.message_holder').append('<div class="msg_bbl"><b style="color: #000">'+msg.usr+'</b> '+msg.msg+'</div>')
+            $('div.message_holder').append('<div class="msg_bbl"><b style="color: #000">'+msg.usr+'</b> '+'<p>'+msg.msg+'</p>'+'</div>')
         }
     })
 </script>
 <div>
     <form action="" method="POST">
         <input type="text" class="usr form-control" placeholder="your name"><br>
-        <input type="text" class="msg form-control" placeholder="message"><br>
+        <!--<input type="text" class="msg form-control" placeholder="message"><br>-->
+        <textarea class="msg form-control" placeholder="message"></textarea><br>
         <button type="submit">Send</button>
     </form>
 </div>
