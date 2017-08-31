@@ -19,5 +19,10 @@ def event_handler(json):
     print('Recived event: '+str(json))
     socketio.emit('response', json, callback=ack)
 
+@socketio.on('msg')
+def msg_handler(msg):
+    print('message: ' + msg)
+    send(msg, broadcast=True)
+
 if __name__ == '__main__':
     socketio.run(app, port=5001, debug=True)
