@@ -1,2 +1,2 @@
-# chatty
+# chatea
 chat app with Flask.
