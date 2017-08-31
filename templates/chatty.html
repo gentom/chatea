@@ -12,6 +12,13 @@ div.chatboard {
     border-radius: 10px;
     margin-bottom: 5px;
 }
+div.notif {
+    background-color: #ea553a;
+    color: #043c78;
+    padding: 5px 10px;
+    border-radius: 10px;
+    margin-bottom: 5px;
+}
 </style>
 </head>
 <body>
@@ -38,7 +45,7 @@ div.chatboard {
         })
     })
     socket.on('joined', function(newusr){
-        $('div.chat_board').append('<div class="chatboard"><b style="color: #000">'+'New User'+'</b> '+'has joined :D'+'</div>')
+        $('div.chat_board').append('<div class="notif"><b style="color: #fff462">'+'New User'+'</b> '+'has joined :D'+'</div>')
     })
     socket.on('response', function(msg){
         console.log(msg)
