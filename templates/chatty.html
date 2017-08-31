@@ -38,21 +38,21 @@ $(document).ready(function() {
 <script type="text/javascript">
     var socket = io.connect('http://127.0.0.1:5001')
     socket.on('connect',function(){
-        socket.emit('my event',{
+        socket.emit('event',{
             data: 'User Connected :D'
         })
         var form = $('form').on('submit',function(e){
             e.preventDefault()
             let usr_name = $('input.usr').val()
             let usr_input = $('input.msg').val()
-            socket.emit('my event',{
+            socket.emit('event',{
                 usr: usr_name,
                 msg: usr_input
             })
             $('input.msg').val('').focus()
         })
     })
-    socket.on('my response', function(msg){
+    socket.on('response', function(msg){
         console.log(msg)
         if(typeof msg.usr !== 'undefined'){
             $('h1').remove()

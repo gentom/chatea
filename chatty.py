@@ -14,10 +14,10 @@ def render():
 def ack():
     print('message was received :D')
 
-@socketio.on('my event')
+@socketio.on('event')
 def event_handler(json):
     print('Recived event: '+str(json))
-    socketio.emit('my response', json, callback=ack)
+    socketio.emit('response', json, callback=ack)
 
 if __name__ == '__main__':
     socketio.run(app, port=5001, debug=True)
