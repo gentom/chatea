@@ -26,7 +26,7 @@ div.notif {
     <div class="chat_board"></div>
 </div>
 <script type="text/javascript">
-    var socket = io.connect('http://127.0.0.1:5001')
+    var socket = io.connect('http://127.0.0.1:5005')
     socket.on('connect',function(){
         socket.emit('new',{
             data: 'User Connected :D'

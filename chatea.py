@@ -20,8 +20,8 @@ def event_handler(json):
     socketio.emit('response', json, callback=ack)
 
 @socketio.on('new')
-def msg_handler(newusr):
+def join_handler(newusr):
     socketio.emit('joined',newusr, callback=ack)
 
 if __name__ == '__main__':
-    socketio.run(app, port=5001, debug=True)
+    socketio.run(app, port=5005, debug=True)
