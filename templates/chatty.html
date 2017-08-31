@@ -6,24 +6,66 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <body>
+<!--
 <script type="text/javascript">
 $(document).ready(function() {
-    var socket = io.connect('http://127.0.0.1:5000');
+    var socket = io.connect('http://127.0.0.1:5001');
     socket.on('connect', function() {
         socket.send('User has connected!');
     });
-    socket.on('message', function(msg) {
-        $("#messages").append('<li>'+msg+'</li>');
+    socket.on('message', function(usr,msg) {
+        $("#messages").append('<li>'+usr+':'+msg+'</li>');
         console.log('Received message');
     });
     $('#sendbutton').on('click', function() {
-        socket.send($('#myMessage').val());
-        $('#myMessage').val('');
+        socket.send($('#myName','#myMessage').val());
+        $('#myName','#myMessage').val('','');
     });
 });
 </script>
 <ul id="messages"></ul>
-<input type="text" id="myMessage">
+<input type="text" id="myName" placeholder="user name">
+<input type="text" id="myMessage" placeholder="message">
 <button id="sendbutton">Send</button>
+-->
+<div>
+    <div>
+        <div class="no_message">
+            <h1 style='color:blueviolet'>No message</h1>
+            <div class="message_holder"></div>
+    </div>
+</div>
+<script type="text/javascript">
+    var socket = io.connect('http://127.0.0.1:5001')
+    socket.on('connect',function(){
+        socket.emit('my event',{
+            data: 'User Connected :D'
+        })
+        var form = $('form').on('submit',function(e){
+            e.preventDefault()
+            let usr_name = $('input.usr').val()
+            let usr_input = $('input.msg').val()
+            socket.emit('my event',{
+                usr: usr_name,
+                msg: usr_input
+            })
+            $('input.msg').val('').focus()
+        })
+    })
+    socket.on('my response', function(msg){
+        console.log(msg)
+        if(typeof msg.usr !== 'undefined'){
+            $('h1').remove()
+            $('div.message_holder').append('<div class="msg_bbl"><b style="color: #000">'+msg.usr+'</b> '+msg.msg+'</div>')
+        }
+    })
+</script>
+<div>
+    <form action="" method="POST">
+        <input type="text" class="usr form-control" placeholder="your name"><br>
+        <input type="text" class="msg form-control" placeholder="message"><br>
+        <button type="submit">Send</button>
+    </form>
+</div>
 </body>
 </html>
