@@ -18,14 +18,12 @@ div.msg_bbl {
 <div>
     <div>
         <div class="no_message">
-            <!--<h1 style='color:blueviolet'>No message</h1>-->
             <div class="message_holder"></div>
     </div>
 </div>
 <script type="text/javascript">
     var socket = io.connect('http://127.0.0.1:5001')
     socket.on('connect',function(){
-        /*$('div.message_holder').append('<div class="msg_bbl"><b style="color: #000">'+'New User'+'</b> '+'has joined :D'+'</div>')*/
         socket.emit('new',{
             data: 'User Connected :D'
         })
@@ -46,7 +44,6 @@ div.msg_bbl {
     socket.on('response', function(msg){
         console.log(msg)
         if(typeof msg.usr !== 'undefined'){
-            /*$('h1').remove()*/
             $('div.message_holder').append('<div class="msg_bbl"><b style="color: #000">'+msg.usr+'</b> '+'<p>'+msg.msg+'</p>'+'</div>')
         }
     })
@@ -54,7 +51,6 @@ div.msg_bbl {
 <div>
     <form action="" method="POST">
         <input type="text" class="usr form-control" placeholder="your name"><br>
-        <!--<input type="text" class="msg form-control" placeholder="message"><br>-->
         <textarea class="msg form-control" placeholder="message"></textarea><br>
         <button type="submit">Send</button>
     </form>
