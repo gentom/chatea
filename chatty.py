@@ -1,6 +1,8 @@
 #!/usr/bin/env python
-# coding: python
-'''
-from src import app
-app.run(host='127.0.0.1', port=5001, debug=True)
-'''
+# coding: utf-8
+from flask import Flask
+from flask_socketio import SocketIO, send
+
+app = Flask(__name__)
+app.config['SECRET_KEY'] = 'secret'
+socketio = SocketIO(app)
