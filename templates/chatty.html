@@ -15,39 +15,18 @@ div.msg_bbl {
 </style>
 </head>
 <body>
-<!--
-<script type="text/javascript">
-$(document).ready(function() {
-    var socket = io.connect('http://127.0.0.1:5001');
-    socket.on('connect', function() {
-        socket.send('User has connected!');
-    });
-    socket.on('message', function(usr,msg) {
-        $("#messages").append('<li>'+usr+':'+msg+'</li>');
-        console.log('Received message');
-    });
-    $('#sendbutton').on('click', function() {
-        socket.send($('#myName','#myMessage').val());
-        $('#myName','#myMessage').val('','');
-    });
-});
-</script>
-<ul id="messages"></ul>
-<input type="text" id="myName" placeholder="user name">
-<input type="text" id="myMessage" placeholder="message">
-<button id="sendbutton">Send</button>
--->
 <div>
     <div>
         <div class="no_message">
-            <h1 style='color:blueviolet'>No message</h1>
+            <!--<h1 style='color:blueviolet'>No message</h1>-->
             <div class="message_holder"></div>
     </div>
 </div>
 <script type="text/javascript">
     var socket = io.connect('http://127.0.0.1:5001')
     socket.on('connect',function(){
-        socket.emit('event',{
+        /*$('div.message_holder').append('<div class="msg_bbl"><b style="color: #000">'+'New User'+'</b> '+'has joined :D'+'</div>')*/
+        socket.emit('new',{
             data: 'User Connected :D'
         })
         var form = $('form').on('submit',function(e){
@@ -61,10 +40,13 @@ $(document).ready(function() {
             $('textarea.msg').val('').focus()
         })
     })
+    socket.on('joined', function(newusr){
+        $('div.message_holder').append('<div class="msg_bbl"><b style="color: #000">'+'New User'+'</b> '+'has joined :D'+'</div>')
+    })
     socket.on('response', function(msg){
         console.log(msg)
         if(typeof msg.usr !== 'undefined'){
-            $('h1').remove()
+            /*$('h1').remove()*/
             $('div.message_holder').append('<div class="msg_bbl"><b style="color: #000">'+msg.usr+'</b> '+'<p>'+msg.msg+'</p>'+'</div>')
         }
     })
