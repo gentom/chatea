@@ -5,7 +5,7 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <style>
-div.msg_bbl {
+div.chatboard {
     background-color: #9d5b8b;
     color: #ffd900;
     padding: 5px 10px;
@@ -17,8 +17,7 @@ div.msg_bbl {
 <body>
 <div>
     <div>
-        <div class="no_message">
-            <div class="message_holder"></div>
+        <div class="chat_board"></div>
     </div>
 </div>
 <script type="text/javascript">
@@ -39,12 +38,12 @@ div.msg_bbl {
         })
     })
     socket.on('joined', function(newusr){
-        $('div.message_holder').append('<div class="msg_bbl"><b style="color: #000">'+'New User'+'</b> '+'has joined :D'+'</div>')
+        $('div.chat_board').append('<div class="chatboard"><b style="color: #000">'+'New User'+'</b> '+'has joined :D'+'</div>')
     })
     socket.on('response', function(msg){
         console.log(msg)
         if(typeof msg.usr !== 'undefined'){
-            $('div.message_holder').append('<div class="msg_bbl"><b style="color: #000">'+msg.usr+'</b> '+'<p>'+msg.msg+'</p>'+'</div>')
+            $('div.chat_board').append('<div class="chatboard"><b style="color: #000">'+msg.usr+'</b> '+'<p>'+msg.msg+'</p>'+'</div>')
         }
     })
 </script>
