@@ -21,43 +21,46 @@ div.notif {
 }
 </style>
 </head>
-<body>
-<div>
-    <div class="chat_board"></div>
-</div>
-<script type="text/javascript">
-    var socket = io.connect('http://127.0.0.1:5005')
-    socket.on('connect',function(){
-        socket.emit('new',{
-            data: 'User Connected :D'
-        })
-        var form = $('form').on('submit',function(e){
-            e.preventDefault()
-            let usr_name = $('input.usr').val()
-            let usr_text = $('textarea.msg').val()
-            socket.emit('event',{
-                usr: usr_name,
-                msg: usr_text
+<body style="background-color:#fff3b8">
+<h1 style="text-align:center; color:#ea5549;">Chatea</h1>
+<div style="position: relative;overflow: hidden;">
+    <div style="position: relative; left: 30%; float:left">
+        <div class="chat_board"></div>
+    </div>
+    <script type="text/javascript">
+        var socket = io.connect('http://127.0.0.1:5005')
+        socket.on('connect',function(){
+            socket.emit('new',{
+                data: 'User Connected :D'
             })
-            $('textarea.msg').val('').focus()
+            var form = $('form').on('submit',function(e){
+                e.preventDefault()
+                let usr_name = $('input.usr').val()
+                let usr_text = $('textarea.msg').val()
+                socket.emit('event',{
+                    usr: usr_name,
+                    msg: usr_text
+                })
+                $('textarea.msg').val('').focus()
+            })
         })
-    })
-    socket.on('joined', function(newusr){
-        $('div.chat_board').append('<div class="notif"><b style="color: #fff462">'+'New User'+'</b> '+'has joined :D'+'</div>')
-    })
-    socket.on('response', function(msg){
-        console.log(msg)
-        if(typeof msg.usr !== 'undefined'){
-            $('div.chat_board').append('<div class="chatboard"><b style="color: #000">'+msg.usr+'</b> '+'<p>'+msg.msg+'</p>'+'</div>')
-        }
-    })
-</script>
-<div>
-    <form action="" method="POST">
-        <input type="text" class="usr form-control" placeholder="your name"><br>
-        <textarea class="msg form-control" placeholder="message"></textarea><br>
-        <button type="submit">Send</button>
-    </form>
+        socket.on('joined', function(newusr){
+            $('div.chat_board').append('<div class="notif"><b style="color: #fff462">'+'New User'+'</b> '+'has joined :D'+'</div>')
+        })
+        socket.on('response', function(msg){
+            console.log(msg)
+            if(typeof msg.usr !== 'undefined'){
+                $('div.chat_board').append('<div class="chatboard"><b style="color: #000">'+msg.usr+'</b> '+'<p>'+msg.msg+'</p>'+'</div>')
+            }
+        })
+    </script>
+    <div style="position: relative; right: 30%; float:right">
+        <form action="" method="POST">
+            <input type="text" class="usr form-control" placeholder="your name"><br>
+            <textarea class="msg form-control" placeholder="message"></textarea><br>
+            <button type="submit">Send</button>
+        </form>
+    </div>
 </div>
 </body>
 </html>
