@@ -1,2 +1,2 @@
-# chatea
-chat app with Flask.
+# Ochatea
+chat app with Flask and SocketIO.

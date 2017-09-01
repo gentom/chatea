@@ -9,7 +9,7 @@ socketio = SocketIO(app)
 
 @app.route('/')
 def render():
-    return render_template('./chatea.html')
+    return render_template('./ochatea.html')
 
 def ack():
     print('message was received :D')
